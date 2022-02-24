@@ -23,7 +23,7 @@
     </style>
     <script>
         // define the callAPI function that takes a first name and last name as parameters
-        var callAPI = (firstName,lastName)=>{
+        var postAPI = (firstName,lastName)=>{
             // instantiate a headers object
             var myHeaders = new Headers();
             // add content type header to object
@@ -52,7 +52,7 @@
         <label>Last Name :</label>
         <input type="text" id="lName">
         <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <button type="button" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Call API</button>
+        <button type="button" onclick="postAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Call API</button>
     </form>
 </body>
 </html>
