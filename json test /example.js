@@ -13,20 +13,35 @@
         const response = await fetch (root.dataset.url) 
         const data = await response.json();
         console.log (data.data);
+        obj = data.data
+        console.log(Object.entries(obj));
+
+        const result = Object.entries(obj).map(([key, value]) => {
+        console.log(key); // 👉️ name, country
+        console.log(Object.values(value)); // 👉️ James, Chile
+
+        return Object.values(value);
+        });
+
+        // 👇️ [{name: 'James'}, {country: 'Chile'}]
+        console.log(result);
+
+
 
         // clear table
         table.querySelector("thead tr").innerHTML = "";
         table.querySelector("tbody").innerHTML = "";
 
         //Populate headers
-        for (const header of data.headers) {
-            table.querySelector("thead tr").insertAdjacentHTML("beforeend", `<th>${ header } </th>`);
+        for (const header of Object.keys(data.data[0])){
+    
+        table.querySelector("thead tr").insertAdjacentHTML("beforeend", `<th>${(header) } </th>`);
         }
         //Populate rows
-        for (const body of data.data) {
+        for (const row of result) {
             table.querySelector("tbody").insertAdjacentHTML("beforeend", `
                 <tr>
-                    ${ row.map(col => '<td>${ col }</td>').join("") }
+                    ${ row.map(col => `<td>${ col }</td>`).join("") }
                 </th>
                 `);
         }
