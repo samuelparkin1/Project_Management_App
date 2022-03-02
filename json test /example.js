@@ -8,7 +8,7 @@
     async function updateTable(root){
         root.querySelector(".table-refresh__button").classList.add(".table-refresh__button--refreshing");
         
-        const table = root.querySelector(".table-refresh__table");
+        const table = root.querySelector(".table,table-striped,table-bordered");
         // change this fetch data to the API link
         const response = await fetch (root.dataset.url) 
         const data = await response.json();
@@ -44,10 +44,11 @@
         const table = document.createElement("table");
         const options = document.createElement("div");
 
-        table.classList.add("table-refresh__table");
+        table.classList.add("table","table-striped","table-bordered");
         options.classList.add("table-refresh__options");
 
         table.innerHTML = `
+
             <thead>
                 <tr></tr>
             </thead>
@@ -56,6 +57,7 @@
                     <td>Loading</td>
                 </t>
             </tbody>
+
         `;
         options.innerHTML = `
             <span class="table-fresh__label">Last update: never</span>
