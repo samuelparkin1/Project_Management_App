@@ -12,20 +12,12 @@
         // change this fetch data to the API link
         const response = await fetch (root.dataset.url) 
         const data = await response.json();
-        console.log (data.data);
+
         obj = data.data
-        console.log(Object.entries(obj));
 
         const result = Object.entries(obj).map(([key, value]) => {
-        console.log(key); // 👉️ name, country
-        console.log(Object.values(value)); // 👉️ James, Chile
-
         return Object.values(value);
         });
-
-        // 👇️ [{name: 'James'}, {country: 'Chile'}]
-        console.log(result);
-
 
 
         // clear table
