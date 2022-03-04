@@ -20,9 +20,8 @@
             var raw = JSON.stringify({"firstName":"firstName","lastName":"lastName"});
             // create a JSON object with parameters for API call and store in a variable
             var requestOptions = {
-                method: 'POST',
+                method: 'GET',
                 headers: myHeaders,
-                body: raw,
                 redirect: 'follow'
             };
             console.log(requestOptions)
@@ -76,14 +75,16 @@
             <tbody>
                 <tr>
                     <td>Loading</td>
-                </t>
+                </tr>
             </tbody>
 
         `;
         options.innerHTML = `
-            <span class="table-fresh__label">Last update: never</span>
-            <button type="button" class="table-refresh__button">
-                <i class="material-icons">refresh</i>
+            <div class="d-block text-right card-footer">
+                <span class="table-fresh__label">Last update: never</span>
+                <button type="button" class="table-refresh__button btn btn-primary">
+                    <i class="material-icons">refresh</i>
+            </div>
         `
 
         root.append(table, options);

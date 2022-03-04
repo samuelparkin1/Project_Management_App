@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css>
+    <!--<script src=" https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <title>Add task</title>
+
+</head>
+
+<body class="bg-dark">
+    <header>
+        <h1 class="text-white container d-flex justify-content-center">Project management</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark text-black">
+            <ul class="navbar-nav text-white container d-flex justify-content-center">
+                <li class="nav-item">
+                    <a href="/index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+            </ul>
+    </header>
+
+    <script>
+        // define the callAPI function that takes in parameters
+        var callAPI = (task,department,priority,longDescription)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"task":task,"department":department,"priority":priority,"longDescription":longDescription});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://4iqr0o9sdg.execute-api.ap-southeast-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="container d-flex justify-content-center mt-50 mb-50">
+                <div class="col-lg-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="title">Add Request</h2>
+                                <p class="card-description">Submit your request</p>  
+                                    <form>
+                                        <label>Task:</label>
+                                        <input type="text" id="task"><br>
+                                        <label for="department">Department:</label>
+                                            <select type="text" id="department" name="department">
+                                                <option value="Plumbing">Plumbing</option>
+                                                <option value="Electrical">Electrical</option>
+                                                <option value="HVAC">HVAC</option>
+                                                <option value="Grounds">Grounds</option>
+                                            </select><br>
+                                        <label for="priority">Priority:</label>
+                                            <select type="text" id="priority" name="department">
+                                                <option value="High">High</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Low">Low</option>
+                                            </select><br>
+                                        <label>Long Description:</label>
+                                        <input type="text" id="longDescription"><br>
+
+                                        <!-- set button onClick method to call function we defined passing input values as parameters -->
+                                        <button type="button" onclick="callAPI(
+                                            document.getElementById('task').value,
+                                            document.getElementById('department').value,
+                                            document.getElementById('priority').value,
+                                            document.getElementById('longDescription').value,                                     
+                                            )">Call API</button>
+                                    </form>
+                
+                        </div>
+                    </div>
+                </div>         
+            </div>
+        </div>
+    </div>           
+</body>
+</html>
