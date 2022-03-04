@@ -81,12 +81,13 @@
                                         <input type="text" id="longDescription"><br>
 
                                         <!-- set button onClick method to call function we defined passing input values as parameters -->
-                                        <button type="button" onclick="callAPI(
+                                        <div class="d-block text-right card-footer"><button class="btn btn-primary" type="button" onclick="callAPI(
                                             document.getElementById('task').value,
                                             document.getElementById('department').value,
                                             document.getElementById('priority').value,
                                             document.getElementById('longDescription').value,                                     
-                                            )">Call API</button>
+                                            )">Submit Task</button>
+                                        </div>
                                     </form>
                 
                         </div>
