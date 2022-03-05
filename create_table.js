@@ -77,7 +77,7 @@
         for (const row of json_row_data) {
             table.querySelector("tbody").insertAdjacentHTML("beforeend", `
                 <tr>
-                ${ row.map(col => `<td>${ col }</td>`).join("")}<td><button class="btn btn-primary" type="button" onclick='deleteAPI("${row[3]}")'>Delete</button></td>
+                ${ row.map(col => `<td>${ col }</td>`).join("")}<td><button class="btn btn-primary" type="button" onclick='deleteAPI("${row[5]}")'>Delete</button></td>
                 </th>
                 `);
         }
