@@ -5,6 +5,30 @@
      * @param {HTMLDivElement} root 
      */
 
+     var deleteAPI = (ID)=>{
+        console.log(ID)
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"ID":ID,});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://4iqr0o9sdg.execute-api.ap-southeast-2.amazonaws.com/dev/", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+
+            
+        }
+
     async function updateTable(root){
         root.querySelector(".table-refresh__button").classList.add(".table-refresh__button--refreshing");
         
@@ -53,7 +77,7 @@
         for (const row of json_row_data) {
             table.querySelector("tbody").insertAdjacentHTML("beforeend", `
                 <tr>
-                    ${ row.map(col => `<td>${ col }</td>`).join("") }
+                ${ row.map(col => `<td>${ col }</td>`).join("")}<td><button class="btn btn-primary" type="button" onclick='deleteAPI("${row[3]}")'>Delete</button></td>
                 </th>
                 `);
         }
