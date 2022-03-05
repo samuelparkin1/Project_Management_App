@@ -4,6 +4,31 @@
      * 
      * @param {HTMLDivElement} root 
      */
+    var updateAPI = (newStage, ID, ) =>{
+        console.log(newStage , ID)
+        // instantiate a headers object
+        var myHeaders = new Headers();
+        // add content type header to object
+        myHeaders.append("Content-Type", "application/json");
+        // using built in JSON utility package turn object to string and store in a variable
+        var raw = JSON.stringify({
+            'id': ID,
+            'stageUpdate': newStage
+        });
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // make API call with parameters and use promises to get response
+        fetch("https://4iqr0o9sdg.execute-api.ap-southeast-2.amazonaws.com/dev", requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+
+    };
 
      var deleteAPI = (ID)=>{
         console.log(ID)
@@ -77,13 +102,20 @@
         for (const row of json_row_data) {
             table.querySelector("tbody").insertAdjacentHTML("beforeend", `
                 <tr>
-                ${ row.map(col => `<td>${ col }</td>`).join("")}<td><button class="btn btn-primary" type="button" onclick='deleteAPI("${row[5]}")'>Delete</button></td>
+                    ${ row.map(col => `<td>${ col }</td>`).join("")}
+                    <td><select onchange='updateAPI(document.getElementById("option[${row[5]}]").value,"${row[5]}" )' id="option[${row[5]}]" name="option">
+	                    <option>Update status</option>
+	                    <option>Approved</option>
+	                    <option>In progress</option>
+	                    <option>Completed</option>
+                        <option>Rejected</option>
+                    </select></td>
+
+                    <td><button class="btn btn-danger" type="button" onclick='deleteAPI("${row[5]}")'>Delete</button></td>
                 </th>
                 `);
         }
-
     }
-
     for (const root of document.querySelectorAll(".table-refresh[data-url]")){
         const table = document.createElement("table");
         const options = document.createElement("div");

@@ -23,6 +23,7 @@ def lambda_handler(event, context):
             'Department':event['department'],
             'Priority':event['priority'],
             'LongDescription':event['longDescription'],
+            'Status': event['status'],
             })
 # return a properly formatted JSON object
     return {
