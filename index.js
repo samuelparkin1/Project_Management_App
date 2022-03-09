@@ -28,6 +28,8 @@
         .then(result => alert(JSON.parse(result).body))
         .catch(error => console.log('error', error));
 
+        
+
     };
 
      var deleteAPI = (ID)=>{
