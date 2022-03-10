@@ -11,6 +11,7 @@
     <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css>
     <!--<script src=" https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="index.js"></script>
 
 
     <title>Add task</title>
@@ -28,30 +29,6 @@
                 <li class="nav-item">
             </ul>
     </header>
-
-    <script>
-        // define the callAPI function that takes in parameters
-        var callAPI = (task,department,priority,longDescription)=>{
-            // instantiate a headers object
-            var myHeaders = new Headers();
-            // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"task":task,"department":department,"priority":priority,"longDescription":longDescription,"status":"Submitted" });
-            // create a JSON object with parameters for API call and store in a variable
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            // make API call with parameters and use promises to get response
-            fetch("https://4iqr0o9sdg.execute-api.ap-southeast-2.amazonaws.com/dev", requestOptions)
-            .then(response => response.text())
-            .then(result => alert(JSON.parse(result).body))
-            .catch(error => console.log('error', error));
-        }
-    </script>
 
     <div class="page-content page-container" id="page-content">
         <div class="padding">
@@ -81,7 +58,7 @@
                                         <input type="text" id="longDescription"><br>
 
                                         <!-- set button onClick method to call function we defined passing input values as parameters -->
-                                        <div class="d-block text-right card-footer"><button class="btn btn-primary" type="button" onclick="callAPI(
+                                        <div class="d-block text-right card-footer"><button class="btn btn-primary" type="button" onclick="addTaskAPI(
                                             document.getElementById('task').value,
                                             document.getElementById('department').value,
                                             document.getElementById('priority').value,
