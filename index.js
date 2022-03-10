@@ -56,13 +56,13 @@
     };
 
      var deleteAPI = (ID)=>{
-        console.log(ID)
+
             // instantiate a headers object
             var myHeaders = new Headers();
             // add content type header to object
             myHeaders.append("Content-Type", "application/json");
             // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"ID":ID,});
+            var raw = JSON.stringify({"id":ID,});
             // create a JSON object with parameters for API call and store in a variable
             var requestOptions = {
                 method: 'DELETE',
@@ -83,26 +83,24 @@
         root.querySelector(".table-refresh__button").classList.add(".table-refresh__button--refreshing");
         
         const table = root.querySelector(".table,table-striped,table-bordered");
-        // change this fetch data to the API link
-
-        var postAPI = ()=>{
+        
+        var getAPI = ()=>{
             // instantiate a headers object
             var myHeaders = new Headers();
             // add content type header to object
             myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"firstName":"firstName","lastName":"lastName"});
+
             // create a JSON object with parameters for API call and store in a variable
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
                 redirect: 'follow'
             };
-            console.log(requestOptions)
+
             return requestOptions
 
         }
-        var requestOptions= postAPI()
+        var requestOptions= getAPI()
 
         const response = await fetch("https://4iqr0o9sdg.execute-api.ap-southeast-2.amazonaws.com/dev", requestOptions) 
         const data = await response.json();
@@ -123,12 +121,13 @@
     
         table.querySelector("thead tr").insertAdjacentHTML("beforeend", `<th>${(header) } </th>`);
         }
-        //Populate rows
+        //Populate rows on the 
         for (const row of json_row_data) {
             table.querySelector("tbody").insertAdjacentHTML("beforeend", `
                 <tr>
                     ${ row.map(col => `<td>${ col }</td>`).join("")}
-                    <td><select onchange='updateAPI(document.getElementById("option[${row[5]}]").value,"${row[5]}" )' id="option[${row[5]}]" name="option">
+                    <td>
+                    <select onchange='updateAPI(document.getElementById("option[${row[5]}]").value,"${row[5]}" )' id="option[${row[5]}]" name="option">
 	                    <option>Update status</option>
 	                    <option>Approved</option>
 	                    <option>In progress</option>
@@ -136,18 +135,29 @@
                         <option>Rejected</option>
                     </select></td>
 
-                    <td><button class="btn btn-danger" type="button" onclick='deleteAPI("${row[5]}")'>Delete</button></td>
+                    <td><button class="table-refresh__button btn btn-danger" type="button" onclick='deleteAPI("${row[5]}")'>Delete</button></td>
                 </th>
                 `);
+        
         }
     }
-    for (const root of document.querySelectorAll(".table-refresh[data-url]")){
+
+    // for loop to construct tables with the class name of table-refresh 
+    for (const root of document.querySelectorAll(".table-refresh")){
+
+        // build the html of the table
         const table = document.createElement("table");
+
+        // build the html of the options
         const options = document.createElement("div");
 
+        //create a class for the table
         table.classList.add("table","table-striped","table-bordered");
+
+        //create a class for the options
         options.classList.add("table-refresh__options");
 
+        // creates the inner HTML for the table
         table.innerHTML = `
 
             <thead>
@@ -156,10 +166,13 @@
             <tbody>
                 <tr>
                     <td>Loading</td>
-                </tr>
+                </tr>              
+                
             </tbody>
 
         `;
+
+        // creates the inner HTML for the buttons
         options.innerHTML = `
             <div class="d-block text-right card-footer">
                 <span class="table-fresh__label">Last update: never</span>
@@ -168,12 +181,16 @@
             </div>
         `
 
+        // adds the HTML Element to the root variable
         root.append(table, options);
+
 
         options.querySelector(".table-refresh__button").addEventListener("click", () => {
             updateTable(root);
         });
 
+
+        // call upon the updateTable function and pass in the root element 
         updateTable(root);
 
 
