@@ -175,7 +175,6 @@
         // creates the inner HTML for the buttons
         options.innerHTML = `
             <div class="d-block text-right card-footer">
-                <span class="table-fresh__label">Last update: never</span>
                 <button type="button" class="table-refresh__button btn btn-primary">
                     <i class="material-icons">refresh</i>
             </div>
