@@ -1,4 +1,4 @@
-# Samuel Parkin T4A2-B - Full Stack Application
+# Project Management App - Full Stack Application
 
 <h2  id="Table_of_content">Table of content</h2>
 
